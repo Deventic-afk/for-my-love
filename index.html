@@ -3,195 +3,171 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8f2fc">
 <title>for meri jaan ♡</title>
 <style>
   :root {
-    --paper: #fbf8f4;
-    --ink: #30283a;
-    --muted: #756b7d;
-    --purple: #8870a8;
-    --light-purple: #eee7f5;
-    --line: #e7dfeb;
-    --white: #fffdfb;
+    --paper: #fbf7fc;
+    --ink: #34263f;
+    --muted: #796c83;
+    --purple: #9b75c7;
+    --purple-dark: #7951a8;
+    --lavender: #e9dcf5;
+    --pink: #f3d8e9;
+    --line: #e8ddec;
+    --white: #fffaff;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
     margin: 0;
-    background: var(--paper);
+    overflow-x: hidden;
     color: var(--ink);
+    background:
+      radial-gradient(ellipse at 8% 12%, rgba(225, 205, 245, .42), transparent 28rem),
+      radial-gradient(ellipse at 94% 44%, rgba(246, 216, 235, .38), transparent 24rem),
+      var(--paper);
     font-family: Georgia, "Times New Roman", serif;
     line-height: 1.75;
   }
   a { color: inherit; }
-  .page {
-    width: min(720px, calc(100% - 36px));
-    margin: 0 auto;
-  }
+  .page { width: min(760px, calc(100% - 36px)); margin: 0 auto; position: relative; z-index: 1; }
   header {
-    padding: 28px 0 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font: 12px/1.4 Arial, sans-serif;
-    letter-spacing: .08em;
-    color: var(--muted);
-    text-transform: uppercase;
+    padding: 25px 0 18px;
+    display: flex; justify-content: space-between; align-items: center;
+    font: 11px/1.4 Arial, sans-serif; letter-spacing: .13em;
+    color: var(--muted); text-transform: uppercase;
   }
-  .tiny-heart { color: var(--purple); font-size: 17px; }
+  .tiny-heart { color: var(--purple); font-size: 20px; }
   .hero {
-    min-height: 78vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 50px 0 72px;
+    min-height: 79vh; display: grid; grid-template-columns: 1.15fr .85fr;
+    gap: 24px; align-items: center; padding: 42px 0 70px;
   }
-  .eyebrow {
-    color: var(--purple);
-    font: 12px/1.5 Arial, sans-serif;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    margin-bottom: 18px;
+  .eyebrow, .section-label {
+    color: var(--purple-dark); font: 11px/1.5 Arial, sans-serif;
+    letter-spacing: .17em; text-transform: uppercase;
   }
-  h1 {
-    font-size: clamp(46px, 10vw, 82px);
-    line-height: .99;
-    font-weight: normal;
-    letter-spacing: -.055em;
-    margin: 0 0 24px;
+  .eyebrow { margin-bottom: 18px; }
+  h1 { font-size: clamp(43px, 8vw, 76px); line-height: .98; font-weight: normal; letter-spacing: -.055em; margin: 0 0 24px; }
+  h1 em { color: var(--purple-dark); font-weight: normal; }
+  .intro { max-width: 410px; color: var(--muted); font-size: 17px; margin: 0; }
+  .scroll-note { margin-top: 42px; font: 10px/1.5 Arial, sans-serif; letter-spacing: .14em; color: #9885a7; text-transform: uppercase; }
+  .record-stage {
+    min-height: 310px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative;
   }
-  h1 em { color: var(--purple); font-weight: normal; }
-  .intro {
-    max-width: 440px;
-    color: var(--muted);
-    font-size: 18px;
-    margin: 0;
+
+  /* The record is now a real button: tap to play / pause */
+  .record-button {
+    display: block; padding: 0; border: 0; background: transparent;
+    border-radius: 50%; line-height: 0; cursor: pointer;
+    position: relative; z-index: 5;
+    touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+    transition: transform .25s;
   }
-  .scroll-note {
-    margin-top: 54px;
-    font: 11px/1.5 Arial, sans-serif;
-    letter-spacing: .14em;
-    color: #9a8ea2;
-    text-transform: uppercase;
+  .record-button:hover, .record-button:focus-visible { background: transparent; color: inherit; transform: scale(1.03); }
+  .record-button:focus-visible { outline: 2px solid var(--purple); outline-offset: 6px; }
+  .record-button:active { transform: scale(.97); }
+
+  .record {
+    width: clamp(190px, 27vw, 255px); aspect-ratio: 1; border-radius: 50%;
+    position: relative; display: grid; place-items: center;
+    background:
+      repeating-radial-gradient(circle at center, #30243a 0 2px, #211a2a 3px 5px, #382843 6px 7px, #211a2a 8px 10px);
+    box-shadow: 0 18px 32px rgba(67, 43, 84, .2), 0 3px 0 rgba(255,255,255,.65) inset;
+    animation: spin 8s linear infinite;
+    animation-play-state: paused;          /* stopped by default */
   }
-  section { padding: 58px 0; border-top: 1px solid var(--line); }
-  .section-label {
-    color: var(--purple);
-    font: 11px/1.5 Arial, sans-serif;
-    letter-spacing: .16em;
-    text-transform: uppercase;
-    margin-bottom: 18px;
+  .record-button.playing .record { animation-play-state: running; }
+  .record::before { content:""; position:absolute; inset: 12%; border: 1px solid rgba(226,205,239,.23); border-radius:50%; }
+  .record::after { content:""; position:absolute; inset: 24%; border: 1px solid rgba(226,205,239,.16); border-radius:50%; }
+  .label-disc {
+    width: 34%; aspect-ratio: 1; border-radius: 50%; z-index: 1;
+    background: radial-gradient(circle at 35% 30%, #e7c8f3, #a87cc6 72%);
+    border: 5px solid #30243a; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    color:#382441; font: 8px/1.3 Arial,sans-serif; text-align:center; letter-spacing:.07em;
   }
-  h2 {
-    font-size: clamp(28px, 6vw, 42px);
-    line-height: 1.15;
-    font-weight: normal;
-    letter-spacing: -.035em;
-    margin: 0 0 22px;
-  }
+  .label-disc .label-heart { font-size: 22px; line-height: 1.1; }
+  .record-caption { margin-top: 24px; text-align:center; color:var(--muted); font:11px/1.6 Arial,sans-serif; letter-spacing:.12em; text-transform:uppercase; }
+  .vinyl-note { font: italic 14px Georgia,serif; text-transform:none; letter-spacing:0; margin-top:3px; color:var(--purple-dark); }
+  .vinyl-hint { font: 11px/1.6 Arial,sans-serif; letter-spacing:.1em; text-transform:none; margin-top:6px; color:#9885a7; }
+
+  .float-heart { position:absolute; color:var(--purple); opacity:.78; animation: bob 3.4s ease-in-out infinite; user-select:none; pointer-events:none; }
+  .heart-a { top: 15px; right: 5%; font-size: 25px; animation-delay:-.8s; }
+  .heart-b { bottom: 64px; left: 0; font-size: 18px; animation-delay:-1.6s; }
+  .heart-c { top: 54px; left: 7%; color:#d28bb8; font-size: 15px; animation-delay:-.3s; }
+  .heart-d { bottom: 104px; right: 0; color:#d28bb8; font-size: 22px; animation-delay:-2s; }
+  section { padding: 56px 0; border-top: 1px solid var(--line); position:relative; }
+  .section-label { margin-bottom: 17px; }
+  h2 { font-size: clamp(28px, 5.5vw, 42px); line-height: 1.15; font-weight: normal; letter-spacing: -.035em; margin: 0 0 22px; }
   p { margin: 0 0 16px; }
-  .letter {
-    background: var(--white);
-    border: 1px solid var(--line);
-    padding: clamp(22px, 6vw, 42px);
-    border-radius: 3px;
-  }
+  .letter { background: rgba(255,250,255,.84); border: 1px solid var(--line); padding: clamp(22px, 6vw, 42px); border-radius: 5px; box-shadow: 0 12px 35px rgba(83, 50, 105, .045); position:relative; }
+  .letter::after { content:"♡"; position:absolute; right:22px; top:8px; color:#d6b8e8; font-size:25px; }
   .letter p { font-size: 17px; }
-  .signoff { margin-top: 28px; color: var(--purple); font-style: italic; font-size: 22px; }
-  .memory {
-    background: var(--light-purple);
-    padding: 30px;
-    border-radius: 3px;
-  }
-  .memory .big {
-    font-size: clamp(25px, 5vw, 36px);
-    line-height: 1.25;
-    margin-bottom: 14px;
-  }
-  .memory p:last-child { margin-bottom: 0; color: #62576e; }
-  .song-line {
-    display: flex;
-    gap: 18px;
-    align-items: flex-start;
-    padding: 22px 0;
-    border-top: 1px solid var(--line);
-  }
-  .song-mark {
-    width: 42px;
-    height: 42px;
-    flex: 0 0 42px;
-    display: grid;
-    place-items: center;
-    background: var(--light-purple);
-    color: var(--purple);
-    border-radius: 50%;
-    font-size: 19px;
-  }
-  .song-title { font-size: 20px; margin: 0 0 3px; }
-  .song-sub { color: var(--muted); font: 13px/1.6 Arial, sans-serif; }
-  .song-links { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 14px; }
-  .song-links a {
-    font: 12px/1.5 Arial, sans-serif;
-    color: var(--purple);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
-  }
-  .secret-box {
-    border: 1px solid var(--line);
-    padding: 25px;
-    background: var(--white);
-  }
-  button {
-    appearance: none;
-    border: 1px solid var(--purple);
-    color: var(--purple);
-    background: transparent;
-    padding: 12px 17px;
-    font: 13px Arial, sans-serif;
-    cursor: pointer;
-    border-radius: 2px;
-    transition: background .2s, color .2s;
-  }
-  button:hover, button:focus-visible { background: var(--purple); color: white; }
-  #secret {
-    display: none;
-    padding-top: 22px;
-    font-size: 20px;
-    line-height: 1.55;
-  }
-  #secret.show { display: block; }
-  footer {
-    padding: 32px 0 45px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 14px;
-  }
-  footer .heart { color: var(--purple); font-size: 20px; }
-  @media (max-width: 480px) {
-    header { padding-top: 20px; }
-    .hero { min-height: 75vh; padding-top: 36px; }
-    section { padding: 43px 0; }
-    .memory { padding: 23px; }
+  .signoff { margin-top: 28px; color: var(--purple-dark); font-style: italic; font-size: 22px; }
+  .memory { background: linear-gradient(135deg, #eee3f7, #f8e9f3); padding: clamp(23px, 5vw, 34px); border:1px solid #e6d7ef; border-radius:5px; position:relative; overflow:hidden; }
+  .memory::after { content:"♡"; position:absolute; font-size:140px; line-height:1; right:4px; bottom:-40px; color:rgba(153,112,190,.12); transform:rotate(12deg); }
+  .memory .big { font-size: clamp(25px, 5vw, 36px); line-height: 1.25; margin-bottom: 14px; position:relative; z-index:1; }
+  .memory p:last-child { margin-bottom:0; color:#62536e; position:relative; z-index:1; }
+  .secret-box { border:1px solid var(--line); padding:25px; background:rgba(255,250,255,.84); box-shadow:0 10px 25px rgba(83,50,105,.04); }
+  button { appearance:none; border:1px solid var(--purple); color:var(--purple-dark); background:#f6effb; padding:12px 17px; font:13px Arial,sans-serif; cursor:pointer; border-radius:3px; transition:background .2s,color .2s,transform .2s; }
+  button:hover, button:focus-visible { background:var(--purple-dark); color:white; transform:translateY(-1px); }
+  #secret { display:none; padding-top:22px; font-size:20px; line-height:1.55; }
+  #secret.show { display:block; animation: reveal .45s ease both; }
+  .decor-hearts { position:absolute; right:0; top:50px; color:#d2b1e8; letter-spacing:7px; font-size:18px; opacity:.8; }
+  footer { padding:32px 0 45px; text-align:center; color:var(--muted); font-size:14px; }
+  footer .heart { color:var(--purple-dark); font-size:23px; animation: pulse 1.8s ease-in-out infinite; }
+  footer .tiny-footer { font:10px Arial,sans-serif; letter-spacing:.12em; margin-top:8px; }
+  .petal { position:fixed; z-index:0; pointer-events:none; color:#c9a7e0; opacity:0; animation: drift linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  @keyframes bob { 0%,100% { transform:translateY(0) rotate(-8deg); } 50% { transform:translateY(-11px) rotate(8deg); } }
+  @keyframes pulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.15); } }
+  @keyframes reveal { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes drift { 0% { opacity:0; transform:translateY(-10vh) rotate(0deg); } 12% { opacity:.5; } 85% { opacity:.4; } 100% { opacity:0; transform:translateY(110vh) rotate(300deg); } }
+  @media (max-width: 590px) {
+    header { padding-top:20px; }
+    .hero { min-height:auto; grid-template-columns:1fr; gap:0; padding:40px 0 52px; }
+    .hero-copy { text-align:center; }
+    .intro { margin:0 auto; }
+    .scroll-note { margin-top:28px; }
+    .record-stage { min-height:285px; margin-top:16px; }
+    .record { width:210px; }
+    .heart-a { right:12%; }
+    .heart-b { left:12%; }
+    .heart-c { left:16%; }
+    .heart-d { right:12%; }
+    section { padding:43px 0; }
   }
   @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    * { transition: none !important; }
+    html { scroll-behavior:auto; }
+    *, *::before, *::after { animation:none !important; transition:none !important; }
   }
 </style>
 </head>
 <body>
-  <div class="page">
-    <header>
-      <span>one year of us</span>
-      <span class="tiny-heart">♡</span>
-    </header>
+  <!-- song.mp3 must sit in the same folder as this file -->
+  <audio id="song" src="song.mp3" preload="auto" loop></audio>
 
+  <div class="page">
+    <header><span>one year of us</span><span class="tiny-heart">♡</span></header>
     <main>
       <div class="hero">
-        <div class="eyebrow">for my favourite person</div>
-        <h1>meri jaan,<br><em>it's been a year.</em></h1>
-        <p class="intro">And somehow, you're still the person I want to tell everything to first.</p>
-        <div class="scroll-note">a little something for you ↓</div>
+        <div class="hero-copy">
+          <div class="eyebrow">for my favourite person</div>
+          <h1>meri jaan,<br><em>it's been a year.</em></h1>
+          <p class="intro">And somehow, you're still the person I want to tell everything to first.</p>
+          <div class="scroll-note">a little something for you ↓</div>
+        </div>
+        <div class="record-stage">
+          <span class="float-heart heart-a">♡</span>
+          <span class="float-heart heart-b">♥</span>
+          <span class="float-heart heart-c">✧</span>
+          <span class="float-heart heart-d">♡</span>
+          <button id="recordButton" class="record-button" type="button" aria-label="Play song" aria-pressed="false">
+            <div class="record"><div class="label-disc"><span class="label-heart">♡</span><span>FOR YOU</span><span>ALWAYS</span></div></div>
+          </button>
+          <div class="record-caption">now playing in my heart<div class="vinyl-note">Walking in the Wind ♫</div><div class="vinyl-hint" id="vinylHint">tap the record to play</div></div>
+        </div>
       </div>
 
       <section>
@@ -216,43 +192,21 @@
           <p>I would happily go back to that day. And I'd happily make a hundred more memories with you.</p>
         </div>
       </section>
-
       <section>
-        <div class="section-label">03 — your song</div>
-        <h2>Of course, this had to be here.</h2>
-        <div class="song-line">
-          <div class="song-mark">♫</div>
-          <div>
-            <p class="song-title">Walking in the Wind</p>
-            <div class="song-sub">One Direction · for my guriya</div>
-            <div class="song-links">
-              <a href="https://www.youtube.com/results?search_query=One+Direction+Walking+in+the+Wind" target="_blank" rel="noopener noreferrer">Listen on YouTube ↗</a>
-              <a href="https://open.spotify.com/search/One%20Direction%20Walking%20in%20the%20Wind" target="_blank" rel="noopener noreferrer">Find on Spotify ↗</a>
-            </div>
-          </div>
-        </div>
-        <p style="color:var(--muted);font-size:15px">Purple for your favourite colour. This song for you. And me, being embarrassingly in love with you.</p>
-      </section>
-
-      <section>
-        <div class="section-label">04 — one last thing</div>
+        <div class="decor-hearts" aria-hidden="true">♡ ✧ ♡</div>
+        <div class="section-label">03 — one last thing</div>
         <h2>For your eyes only.</h2>
         <div class="secret-box">
           <p style="margin-bottom:18px">There's one more thing I wanted to tell you, meri jaan.</p>
           <button id="revealButton" type="button" aria-expanded="false" aria-controls="secret">open this, guriya ♡</button>
-          <div id="secret">
-            I don't need every day to be perfect. I just want to keep choosing you on the normal days, the difficult days, the silly days, and all the days we haven't met yet. Thank you for being my person. I love you, meri jaan. ♡
-          </div>
+          <div id="secret">I don't need every day to be perfect. I just want to keep choosing you on the normal days, the difficult days, the silly days, and all the days we haven't met yet. Thank you for being my person. I love you, meri jaan. ♡</div>
         </div>
       </section>
     </main>
-
-    <footer>
-      made with love, just for you <div class="heart">♡</div>
-      <div style="font:11px Arial,sans-serif;letter-spacing:.08em;margin-top:8px">YOU + ME · ONE YEAR</div>
-    </footer>
+    <footer>made with love, just for you<div class="heart">♡</div><div class="tiny-footer">YOU + ME · ONE YEAR</div></footer>
   </div>
 <script>
+  // ---- Secret message ----
   const button = document.getElementById('revealButton');
   const secret = document.getElementById('secret');
   button.addEventListener('click', () => {
@@ -260,6 +214,55 @@
     button.setAttribute('aria-expanded', String(isOpen));
     button.textContent = isOpen ? 'close this ♡' : 'open this, guriya ♡';
   });
+
+  // ---- Vinyl: tap to play / pause song.mp3 ----
+  const song = document.getElementById('song');
+  const recordButton = document.getElementById('recordButton');
+  const vinylHint = document.getElementById('vinylHint');
+
+  function setPlayingUI(isPlaying) {
+    recordButton.classList.toggle('playing', isPlaying);
+    recordButton.setAttribute('aria-pressed', String(isPlaying));
+    recordButton.setAttribute('aria-label', isPlaying ? 'Pause song' : 'Play song');
+    vinylHint.textContent = isPlaying ? 'tap the record to pause' : 'tap the record to play';
+  }
+
+  recordButton.addEventListener('click', async () => {
+    if (song.paused) {
+      try {
+        await song.play();
+      } catch (err) {
+        vinylHint.textContent = "couldn't load song.mp3 — check it's in the same folder";
+        console.error(err);
+      }
+    } else {
+      song.pause();
+    }
+  });
+
+  // Keep the spinning in sync with the actual audio state
+  song.addEventListener('play',  () => setPlayingUI(true));
+  song.addEventListener('pause', () => setPlayingUI(false));
+  song.addEventListener('error', () => {
+    setPlayingUI(false);
+    vinylHint.textContent = "couldn't find song.mp3 — check it's in the same folder";
+  });
+
+  // ---- Floating hearts ----
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reducedMotion) {
+    const symbols = ['♡', '♥', '✧'];
+    for (let i = 0; i < 10; i++) {
+      const heart = document.createElement('span');
+      heart.className = 'petal';
+      heart.textContent = symbols[i % symbols.length];
+      heart.style.left = (5 + Math.random() * 90) + 'vw';
+      heart.style.animationDuration = (13 + Math.random() * 13) + 's';
+      heart.style.animationDelay = (-Math.random() * 24) + 's';
+      heart.style.fontSize = (10 + Math.random() * 12) + 'px';
+      document.body.appendChild(heart);
+    }
+  }
 </script>
 </body>
 </html>
