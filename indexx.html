@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>for meri jaan ♡</title>
+<style>
+  :root {
+    --paper: #fbf8f4;
+    --ink: #30283a;
+    --muted: #756b7d;
+    --purple: #8870a8;
+    --light-purple: #eee7f5;
+    --line: #e7dfeb;
+    --white: #fffdfb;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.75;
+  }
+  a { color: inherit; }
+  .page {
+    width: min(720px, calc(100% - 36px));
+    margin: 0 auto;
+  }
+  header {
+    padding: 28px 0 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font: 12px/1.4 Arial, sans-serif;
+    letter-spacing: .08em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .tiny-heart { color: var(--purple); font-size: 17px; }
+  .hero {
+    min-height: 78vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px 0 72px;
+  }
+  .eyebrow {
+    color: var(--purple);
+    font: 12px/1.5 Arial, sans-serif;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: clamp(46px, 10vw, 82px);
+    line-height: .99;
+    font-weight: normal;
+    letter-spacing: -.055em;
+    margin: 0 0 24px;
+  }
+  h1 em { color: var(--purple); font-weight: normal; }
+  .intro {
+    max-width: 440px;
+    color: var(--muted);
+    font-size: 18px;
+    margin: 0;
+  }
+  .scroll-note {
+    margin-top: 54px;
+    font: 11px/1.5 Arial, sans-serif;
+    letter-spacing: .14em;
+    color: #9a8ea2;
+    text-transform: uppercase;
+  }
+  section { padding: 58px 0; border-top: 1px solid var(--line); }
+  .section-label {
+    color: var(--purple);
+    font: 11px/1.5 Arial, sans-serif;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  h2 {
+    font-size: clamp(28px, 6vw, 42px);
+    line-height: 1.15;
+    font-weight: normal;
+    letter-spacing: -.035em;
+    margin: 0 0 22px;
+  }
+  p { margin: 0 0 16px; }
+  .letter {
+    background: var(--white);
+    border: 1px solid var(--line);
+    padding: clamp(22px, 6vw, 42px);
+    border-radius: 3px;
+  }
+  .letter p { font-size: 17px; }
+  .signoff { margin-top: 28px; color: var(--purple); font-style: italic; font-size: 22px; }
+  .memory {
+    background: var(--light-purple);
+    padding: 30px;
+    border-radius: 3px;
+  }
+  .memory .big {
+    font-size: clamp(25px, 5vw, 36px);
+    line-height: 1.25;
+    margin-bottom: 14px;
+  }
+  .memory p:last-child { margin-bottom: 0; color: #62576e; }
+  .song-line {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 22px 0;
+    border-top: 1px solid var(--line);
+  }
+  .song-mark {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    display: grid;
+    place-items: center;
+    background: var(--light-purple);
+    color: var(--purple);
+    border-radius: 50%;
+    font-size: 19px;
+  }
+  .song-title { font-size: 20px; margin: 0 0 3px; }
+  .song-sub { color: var(--muted); font: 13px/1.6 Arial, sans-serif; }
+  .song-links { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 14px; }
+  .song-links a {
+    font: 12px/1.5 Arial, sans-serif;
+    color: var(--purple);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+  .secret-box {
+    border: 1px solid var(--line);
+    padding: 25px;
+    background: var(--white);
+  }
+  button {
+    appearance: none;
+    border: 1px solid var(--purple);
+    color: var(--purple);
+    background: transparent;
+    padding: 12px 17px;
+    font: 13px Arial, sans-serif;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background .2s, color .2s;
+  }
+  button:hover, button:focus-visible { background: var(--purple); color: white; }
+  #secret {
+    display: none;
+    padding-top: 22px;
+    font-size: 20px;
+    line-height: 1.55;
+  }
+  #secret.show { display: block; }
+  footer {
+    padding: 32px 0 45px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  footer .heart { color: var(--purple); font-size: 20px; }
+  @media (max-width: 480px) {
+    header { padding-top: 20px; }
+    .hero { min-height: 75vh; padding-top: 36px; }
+    section { padding: 43px 0; }
+    .memory { padding: 23px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <span>one year of us</span>
+      <span class="tiny-heart">♡</span>
+    </header>
+
+    <main>
+      <div class="hero">
+        <div class="eyebrow">for my favourite person</div>
+        <h1>meri jaan,<br><em>it's been a year.</em></h1>
+        <p class="intro">And somehow, you're still the person I want to tell everything to first.</p>
+        <div class="scroll-note">a little something for you ↓</div>
+      </div>
+
+      <section>
+        <div class="section-label">01 — a note for you</div>
+        <h2>Not the fanciest words.<br>Just mine.</h2>
+        <div class="letter">
+          <p>Happy one year, meri jaan. ♡</p>
+          <p>I don't think I could fit everything I feel for you into one page, and I'm not going to pretend I can. I just want you to know that having you in my life has made ordinary days feel a little less ordinary.</p>
+          <p>You're the person I miss in the middle of doing something else. The person I want beside me when something good happens, and the person I want to talk to when the day has been rubbish. Even the small, random moments with you mean more to me than I probably manage to say.</p>
+          <p>I'm really glad it's you. Not some perfect, made-up version of love. You, exactly as you are. And I hope I keep giving you reasons to feel just as loved as you make me feel.</p>
+          <p>One year down, jaan. I want so many more with you.</p>
+          <div class="signoff">always yours ♡</div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-label">02 — the memory I keep</div>
+        <h2>That day at LUMS.</h2>
+        <div class="memory">
+          <p class="big">I got to see you in person, and that was enough to make the day special.</p>
+          <p>Out of all the things we could put on this page, I wanted this here. Not because it has to sound cinematic, but because it's ours. I got to come see you, be around you, and have a real-life memory with the girl I care about so much.</p>
+          <p>I would happily go back to that day. And I'd happily make a hundred more memories with you.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-label">03 — your song</div>
+        <h2>Of course, this had to be here.</h2>
+        <div class="song-line">
+          <div class="song-mark">♫</div>
+          <div>
+            <p class="song-title">Walking in the Wind</p>
+            <div class="song-sub">One Direction · for my guriya</div>
+            <div class="song-links">
+              <a href="https://www.youtube.com/results?search_query=One+Direction+Walking+in+the+Wind" target="_blank" rel="noopener noreferrer">Listen on YouTube ↗</a>
+              <a href="https://open.spotify.com/search/One%20Direction%20Walking%20in%20the%20Wind" target="_blank" rel="noopener noreferrer">Find on Spotify ↗</a>
+            </div>
+          </div>
+        </div>
+        <p style="color:var(--muted);font-size:15px">Purple for your favourite colour. This song for you. And me, being embarrassingly in love with you.</p>
+      </section>
+
+      <section>
+        <div class="section-label">04 — one last thing</div>
+        <h2>For your eyes only.</h2>
+        <div class="secret-box">
+          <p style="margin-bottom:18px">There's one more thing I wanted to tell you, meri jaan.</p>
+          <button id="revealButton" type="button" aria-expanded="false" aria-controls="secret">open this, guriya ♡</button>
+          <div id="secret">
+            I don't need every day to be perfect. I just want to keep choosing you on the normal days, the difficult days, the silly days, and all the days we haven't met yet. Thank you for being my person. I love you, meri jaan. ♡
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      made with love, just for you <div class="heart">♡</div>
+      <div style="font:11px Arial,sans-serif;letter-spacing:.08em;margin-top:8px">YOU + ME · ONE YEAR</div>
+    </footer>
+  </div>
+<script>
+  const button = document.getElementById('revealButton');
+  const secret = document.getElementById('secret');
+  button.addEventListener('click', () => {
+    const isOpen = secret.classList.toggle('show');
+    button.setAttribute('aria-expanded', String(isOpen));
+    button.textContent = isOpen ? 'close this ♡' : 'open this, guriya ♡';
+  });
+</script>
+</body>
+</html>
